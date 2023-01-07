@@ -1,10 +1,10 @@
-package com.slicequeue.project;
+package com.slicequeue.jamcar;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjectApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
