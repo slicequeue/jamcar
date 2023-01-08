@@ -38,3 +38,4 @@ out/
 
 ### project custom ###
 /log/*.log
+log/
