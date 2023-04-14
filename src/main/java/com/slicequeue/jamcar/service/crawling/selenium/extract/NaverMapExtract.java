@@ -32,7 +32,7 @@ public class NaverMapExtract implements Extract {
             String distance = element.findElement(By.cssSelector("span.summary_info readable-distance")).getText();
             String etcFee = element.findElement(By.cssSelector("div.route_summary_info_area ul")).getText();
             String route = element.findElement(By.cssSelector("directions-summary-item-car-route-list")).getText();
-            result.add(CrawlingData.from(duration, distance, etcFee, route, now));
+            result.add(CrawlingData.from(duration, distance, route, etcFee, now));
         }
         return result;
     }
