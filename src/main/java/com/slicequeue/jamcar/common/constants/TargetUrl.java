@@ -17,5 +17,5 @@ public enum TargetUrl {
             "-/car?c=14146391.2675571,4347634.8680213,7,0,0,0,dh")
     ;
 
-    public String url;
+    public final String url;
 }
