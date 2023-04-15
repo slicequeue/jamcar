@@ -1,8 +1,9 @@
-# Spring Boot API Boilerplate
-- slicequeue! spring boot api boilerplate 프로젝트
+# Jamcar Rest API Server
+- 자차로 출퇴근 길 교통상황에 대해서 파악할 수 있는 구간 교통 수집 프로그램 Rest API Server
+
 
 ## 구성
-Spring Boot RESTful API 전용 프로젝트
+Spring Boot RESTful API 
 
 ### 폴더 구조
 - TBU
