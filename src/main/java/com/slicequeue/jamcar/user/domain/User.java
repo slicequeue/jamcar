@@ -1,5 +1,6 @@
 package com.slicequeue.jamcar.user.domain;
 
+import com.slicequeue.jamcar.common.base.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseTimeEntity {
 
     @EmbeddedId
     private UserUid userUid;
@@ -26,6 +27,6 @@ public class User {
     @Column(length = 32)
     private String name;
 
-    
+
 
 }
