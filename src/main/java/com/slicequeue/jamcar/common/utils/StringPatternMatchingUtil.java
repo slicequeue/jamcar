@@ -1,5 +1,7 @@
 package com.slicequeue.jamcar.common.utils;
 
+import org.springframework.util.StringUtils;
+
 import java.util.regex.Pattern;
 
 public final class StringPatternMatchingUtil {
@@ -17,7 +19,12 @@ public final class StringPatternMatchingUtil {
         return pattern.matcher(email).matches();
     }
 
+    public static boolean isValidName(String name) {
+        return !name.isBlank();
+    }
+
     private StringPatternMatchingUtil() {
         throw new IllegalStateException("no StringPatternMatchingUtil");
     }
+
 }
