@@ -4,6 +4,7 @@ import com.slicequeue.jamcar.common.base.BaseTimeEntity;
 import com.slicequeue.jamcar.common.utils.StringPatternMatchingUtil;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -11,7 +12,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 
@@ -29,7 +31,7 @@ public class User extends BaseTimeEntity {
     @Column(length = 32)
     private String name;
 
-    @Builder
+    @Builder(builderMethodName = "newUser")
     private User(Email email, Password password, String name) {
         assert email != null;
         assert password != null;
