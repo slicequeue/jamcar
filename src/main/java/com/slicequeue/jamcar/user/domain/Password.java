@@ -12,11 +12,13 @@ public class Password {
 
     @Comment("비밀번호")
     @Column(length = 256, nullable = false)
-    private final String password;
+    private String password;
 
     public Password(String password) {
         this.password = checkPassword(password);
     }
+    private Password() {}
+
 
     private String checkPassword(String password) {
         if (!StringPatternMatchingUtil.isValidPassword(password))

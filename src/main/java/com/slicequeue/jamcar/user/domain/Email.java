@@ -1,6 +1,7 @@
 package com.slicequeue.jamcar.user.domain;
 
 import com.slicequeue.jamcar.common.utils.StringPatternMatchingUtil;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.Column;
@@ -12,11 +13,13 @@ public class Email {
 
     @Comment("이메일")
     @Column(length = 128, nullable = false)
-    private final String email;
+    private String email;
 
     public Email(String email) {
         this.email = checkEmail(email);
     }
+
+    private Email() {}
 
     public String getEmail() {
         return email;
