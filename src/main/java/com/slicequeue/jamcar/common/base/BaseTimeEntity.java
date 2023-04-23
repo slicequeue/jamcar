@@ -1,8 +1,8 @@
 package com.slicequeue.jamcar.common.base;
 
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -15,11 +15,12 @@ import java.time.Instant;
 @MappedSuperclass
 public class BaseTimeEntity {
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(updatable = false)
     private Instant createdAt;
 
-    @LastModifiedDate
+    @UpdateTimestamp
+    @Column
     private Instant updatedAt;
 
 }
