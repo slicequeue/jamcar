@@ -1,4 +1,4 @@
-package com.slicequeue.jamcar.user.domain;
+package com.slicequeue.jamcar.user.command.domain;
 
 import com.slicequeue.jamcar.common.utils.StringPatternMatchingUtil;
 import org.hibernate.annotations.Comment;
@@ -19,6 +19,10 @@ public class Password {
     }
     private Password() {}
 
+    @Override
+    public String toString() {
+        return password;
+    }
 
     private String checkPassword(String password) {
         if (!StringPatternMatchingUtil.isValidPassword(password))

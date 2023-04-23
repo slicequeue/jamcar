@@ -1,7 +1,6 @@
-package com.slicequeue.jamcar.user.domain;
+package com.slicequeue.jamcar.user.command.domain;
 
 import com.slicequeue.jamcar.common.utils.StringPatternMatchingUtil;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.Column;
@@ -21,7 +20,8 @@ public class Email {
 
     private Email() {}
 
-    public String getEmail() {
+    @Override
+    public String toString() {
         return email;
     }
 

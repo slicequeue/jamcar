@@ -1,6 +1,10 @@
-package com.slicequeue.jamcar.user.domain;
+package com.slicequeue.jamcar.user.command.domain;
 
 import com.slicequeue.jamcar.common.utils.ReflectUtil;
+import com.slicequeue.jamcar.user.command.domain.Email;
+import com.slicequeue.jamcar.user.command.domain.Password;
+import com.slicequeue.jamcar.user.command.domain.User;
+import com.slicequeue.jamcar.user.command.domain.UserUid;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,7 +62,7 @@ public class UserTest {
 
         if (uid != null) {
             try {
-                ReflectUtil.setField(user, "uid", uid);
+                ReflectUtil.setField(user, "userUid", uid);
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 throw new IllegalStateException(e);
             }

@@ -1,4 +1,4 @@
-package com.slicequeue.jamcar.user.domain;
+package com.slicequeue.jamcar.user.command.domain;
 
 import org.hibernate.annotations.Comment;
 
