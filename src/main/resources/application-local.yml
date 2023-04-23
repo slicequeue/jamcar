@@ -1,0 +1,30 @@
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+
+  datasource:
+    generate-unique-name: false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:1}
+
+## 테스트 로그 설정
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+#logging:
+#  config:
+#    classpath: logback.xml

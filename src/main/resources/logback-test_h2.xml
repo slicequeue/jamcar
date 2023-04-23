@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <included>
-  <contextName>local</contextName>
-
+  <contextName>test</contextName>
   <property name="LOG_HOME" value="./log" />
   <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %thread %X{req.remoteHost} %X{req.requestURI} %X{req.queryString} %-5level %logger{36} - %msg%n" />
 
@@ -28,11 +27,12 @@
   <logger name="org.apache.catalina.startup.ContextConfig" level="ERROR"/>
   <!-- TLD 관련 로그 출력-->
   <logger name="org.apache.jasper.servlet.TldScanner" level="ERROR"/>
-  <logger name="com.slicequeue." level="DEBUG"/>
-  <logger name="org.springframework" level="ERROR"/>
+  <logger name="org.springframework" level="INFO"/>
+  <logger name="org.springframework.jdbc.core" level="TRACE"/>
   <logger name="org.hibernate" level="ERROR"/>
   <logger name="org.hibernate.SQL" level="DEBUG"/>
-  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="DEBUG"/>
+  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+  <logger name="com.slicequeue.jamcar." level="DEBUG"/>
   <root level="DEBUG">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="fileAppender" />
