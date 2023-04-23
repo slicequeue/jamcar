@@ -1,4 +1,4 @@
-package com.slicequeue.jamcar.user.domain;
+package com.slicequeue.jamcar.user.command.domain;
 
 import com.slicequeue.jamcar.common.base.BaseTimeEntity;
 import com.slicequeue.jamcar.common.utils.StringPatternMatchingUtil;
