@@ -39,4 +39,9 @@ public class UserUid implements Serializable {
     public int hashCode() {
         return Objects.hash(uid);
     }
+
+    @Override
+    public String toString() {
+        return getUid().toString();
+    }
 }
