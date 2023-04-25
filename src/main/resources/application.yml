@@ -3,9 +3,7 @@ server:
 
 spring:
   application:
-    name: 'spring-boot-boilerplate-api'
-  profiles:
-    active: local
+    name: 'jamcar-api'
 
   config:
     import: classpath:extra.yml
