@@ -46,6 +46,8 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.28'
 	testRuntimeOnly 'com.h2database:h2'
 
+	testImplementation 'io.rest-assured:rest-assured:4.4.0'
+
 
 }
 
