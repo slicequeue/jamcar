@@ -1,5 +1,6 @@
 package com.slicequeue.jamcar.user.presentation;
 
+import com.slicequeue.jamcar.common.exception.BadRequestException;
 import com.slicequeue.jamcar.user.command.application.CreateUserRequest;
 import com.slicequeue.jamcar.user.command.application.CreateUserResponse;
 import com.slicequeue.jamcar.user.command.application.CreateUserService;
@@ -17,8 +18,12 @@ public class UsersController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest createUserRequest) {
-        UserUid userUid = createUserService.createUser(createUserRequest);
-        return ResponseEntity.ok(CreateUserResponse.from(userUid));
+        try {
+            UserUid userUid = createUserService.createUser(createUserRequest);
+            return ResponseEntity.ok(CreateUserResponse.from(userUid));
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException(e);
+        }
     }
 
 }

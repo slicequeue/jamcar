@@ -4,6 +4,7 @@ import com.slicequeue.jamcar.user.command.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Service
 @RequiredArgsConstructor
@@ -14,10 +15,10 @@ public class CreateUserService {
     @Transactional
     public UserUid createUser(CreateUserRequest createUserRequest) {
         // 검증
-        if (createUserRequest == null) throw new IllegalArgumentException();
-        if (createUserRequest.getEmail() == null) throw new IllegalArgumentException();
-        if (createUserRequest.getPassword() == null) throw new IllegalArgumentException();
-        if (createUserRequest.getName() == null) throw new IllegalArgumentException();
+        Assert.notNull(createUserRequest, "createUserRequest");
+        Assert.notNull(createUserRequest.getEmail(), "email");
+        Assert.notNull(createUserRequest.getPassword(), "password");
+        Assert.notNull(createUserRequest.getName(), "name");
 
         // 엔티티 생성
         User user = User.newUser()
