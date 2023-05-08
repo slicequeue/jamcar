@@ -2,6 +2,9 @@ package com.slicequeue.jamcar.user.command.domain;
 
 import com.slicequeue.jamcar.common.base.BaseTimeEntity;
 import com.slicequeue.jamcar.common.utils.StringPatternMatchingUtil;
+import com.slicequeue.jamcar.user.command.domain.vo.Email;
+import com.slicequeue.jamcar.user.command.domain.vo.Password;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -6,7 +6,7 @@ import com.slicequeue.jamcar.user.command.application.CreateUserRequest;
 import com.slicequeue.jamcar.user.command.application.CreateUserService;
 import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.UserTest;
-import com.slicequeue.jamcar.user.command.domain.UserUid;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;

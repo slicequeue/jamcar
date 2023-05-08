@@ -2,7 +2,7 @@ package com.slicequeue.jamcar.user.infra;
 
 import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.UserRepository;
-import com.slicequeue.jamcar.user.command.domain.UserUid;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

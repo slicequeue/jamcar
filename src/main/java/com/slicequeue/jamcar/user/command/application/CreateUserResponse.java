@@ -1,6 +1,6 @@
 package com.slicequeue.jamcar.user.command.application;
 
-import com.slicequeue.jamcar.user.command.domain.UserUid;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.Getter;
 
 @Getter

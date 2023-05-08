@@ -1,5 +1,6 @@
 package com.slicequeue.jamcar.user.command.domain;
 
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;

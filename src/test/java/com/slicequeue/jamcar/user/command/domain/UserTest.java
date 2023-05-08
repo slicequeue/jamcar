@@ -1,6 +1,9 @@
 package com.slicequeue.jamcar.user.command.domain;
 
 import com.slicequeue.jamcar.common.utils.ReflectUtil;
+import com.slicequeue.jamcar.user.command.domain.vo.Email;
+import com.slicequeue.jamcar.user.command.domain.vo.Password;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

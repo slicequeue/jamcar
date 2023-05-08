@@ -4,7 +4,7 @@ import com.slicequeue.jamcar.common.exception.BadRequestException;
 import com.slicequeue.jamcar.user.command.application.CreateUserRequest;
 import com.slicequeue.jamcar.user.command.application.CreateUserResponse;
 import com.slicequeue.jamcar.user.command.application.CreateUserService;
-import com.slicequeue.jamcar.user.command.domain.UserUid;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

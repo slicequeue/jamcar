@@ -1,6 +1,9 @@
 package com.slicequeue.jamcar.user.command.application;
 
 import com.slicequeue.jamcar.user.command.domain.*;
+import com.slicequeue.jamcar.user.command.domain.vo.Email;
+import com.slicequeue.jamcar.user.command.domain.vo.Password;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

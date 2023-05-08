@@ -3,7 +3,7 @@ package com.slicequeue.jamcar.user.command.application;
 import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.UserRepository;
 import com.slicequeue.jamcar.user.command.domain.UserTest;
-import com.slicequeue.jamcar.user.command.domain.UserUid;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import com.slicequeue.jamcar.util.ParameterizedTestUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

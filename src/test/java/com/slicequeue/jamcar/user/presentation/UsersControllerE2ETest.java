@@ -3,7 +3,7 @@ package com.slicequeue.jamcar.user.presentation;
 import com.slicequeue.jamcar.user.command.application.CreateUserRequest;
 import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.UserTest;
-import com.slicequeue.jamcar.user.command.domain.UserUid;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
