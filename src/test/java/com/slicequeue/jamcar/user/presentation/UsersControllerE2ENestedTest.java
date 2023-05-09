@@ -34,9 +34,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestClassOrder(ClassOrderer.OrderAnnotation.class)
 class UsersControllerE2ENestedTest {
 
-    @Autowired
-    TestEntityManager testEntityManager;
-
     @LocalServerPort
     int port;
 
@@ -128,11 +125,6 @@ class UsersControllerE2ENestedTest {
     @Order(2)
     @DisplayName("사용자 로그인 테스트")
     class LoginUserTest {
-
-        @BeforeAll
-        void setUpBeforeAll () {
-            System.out.println("test");
-        }
 
         @Test
         @Order(1)
