@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
 
     private final CreateUserService createUserService;
-    
+
+    private final LoginUserService loginUserService;
+
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest createUserRequest) {
@@ -27,8 +29,12 @@ public class UsersController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginUserResponse> loginUser(@RequestBody LoginUserRequest loginUserRequest) {
-
-        return ResponseEntity.ok(LoginUserResponse.builder().build());
+        try {
+            LoginUserResponse response = loginUserService.login(loginUserRequest);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException(e);
+        }
     }
 
 }

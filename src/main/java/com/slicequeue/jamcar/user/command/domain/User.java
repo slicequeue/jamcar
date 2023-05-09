@@ -51,4 +51,8 @@ public class User extends BaseTimeEntity {
             throw new IllegalArgumentException("name is not valid");
         return name;
     }
+
+    public boolean checkPassword(Password password) {
+        return this.password.equals(password);
+    }
 }

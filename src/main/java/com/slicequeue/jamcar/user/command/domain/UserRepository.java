@@ -1,5 +1,6 @@
 package com.slicequeue.jamcar.user.command.domain;
 
+import com.slicequeue.jamcar.user.command.domain.vo.Email;
 import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,5 +13,8 @@ public interface UserRepository {
 
     @Transactional(readOnly = true)
     Optional<User> findByUid(UserUid uid);
+
+    @Transactional
+    Optional<User> findByEmail(Email email);
 
 }

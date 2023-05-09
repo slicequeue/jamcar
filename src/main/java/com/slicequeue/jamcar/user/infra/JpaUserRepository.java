@@ -2,6 +2,7 @@ package com.slicequeue.jamcar.user.infra;
 
 import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.UserRepository;
+import com.slicequeue.jamcar.user.command.domain.vo.Email;
 import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,13 @@ public class JpaUserRepository implements UserRepository {
     @Override
     public Optional<User> findByUid(UserUid uid) {
         return Optional.ofNullable(entityManager.find(User.class, uid));
+    }
+
+    @Override
+    public Optional<User> findByEmail(Email email) {
+        User result = (User) entityManager.createQuery("SELECT user from User user where user.email = ?1")
+                .setParameter(1, email)
+                .getSingleResult();
+        return Optional.ofNullable(result);
     }
 }

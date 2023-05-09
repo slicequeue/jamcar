@@ -21,9 +21,6 @@ public class LoginUserRequest {
 
     @Builder
     public LoginUserRequest(String email, String password) {
-        Assert.notNull(email, "email");
-        Assert.notNull(password, "password");
-
         this.email = email;
         this.password = password;
     }

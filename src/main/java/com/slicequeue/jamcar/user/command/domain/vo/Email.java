@@ -26,7 +26,7 @@ public class Email {
     }
 
     private String checkEmail(String email) {
-        if (!StringPatternMatchingUtil.isValidEmail(email))
+        if (email == null || !StringPatternMatchingUtil.isValidEmail(email))
             throw new IllegalArgumentException("email validation fail.");
         return email;
     }

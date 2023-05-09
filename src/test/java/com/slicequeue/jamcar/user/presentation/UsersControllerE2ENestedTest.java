@@ -3,6 +3,7 @@ package com.slicequeue.jamcar.user.presentation;
 import com.slicequeue.jamcar.user.command.application.CreateUserRequest;
 import com.slicequeue.jamcar.user.command.application.LoginUserRequest;
 import com.slicequeue.jamcar.user.command.domain.User;
+import com.slicequeue.jamcar.user.command.domain.UserRepository;
 import com.slicequeue.jamcar.user.command.domain.UserTest;
 import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import io.restassured.RestAssured;
@@ -123,8 +124,20 @@ class UsersControllerE2ENestedTest {
 
     @Nested
     @Order(2)
+    @TestInstance(Lifecycle.PER_CLASS)
     @DisplayName("사용자 로그인 테스트")
     class LoginUserTest {
+
+        @Autowired
+        UserRepository userRepository;
+
+        @BeforeAll
+        void init() {
+            // 위에 CreateUserTest 의해 해당 생성한 샘플 아이디가 존재함
+            // @TestInstance(Lifecycle.PER_CLASS) 에 의해 트렌젝션 유지~
+//            User sampleUser = UserTest.getSampleUser(new UserUid());
+//            userRepository.save(sampleUser);
+        }
 
         @Test
         @Order(1)
@@ -157,14 +170,13 @@ class UsersControllerE2ENestedTest {
             assertThat(response.body().jsonPath().getString("expiredAt")).isNotBlank();
         }
 
-        @Test
         @Order(2)
-        @DisplayName("로그인 실패 - 아이디 비밀번호 맞지 않는 경우")
-        void loginUser_fail() {
+        @ParameterizedTest
+        @MethodSource("getArguments_loginUser_fail_case1")
+        @DisplayName("로그인 실패 - 아이디 비밀번호 형식이 맞지 않는 경우")
+        void loginUser_fail_case1(String loginEmail, String loginPassword) {
             // given
             final String targetUrl = "/users/login";
-            final String loginEmail = "wrong@gmail.com";
-            final String loginPassword = "wrong!@#$";
 
             final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
                     .email(loginEmail)
@@ -183,6 +195,17 @@ class UsersControllerE2ENestedTest {
 
             // then
             assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        }
+
+        private static Stream<Arguments> getArguments_loginUser_fail_case1() {
+            final String wrongEmail = "wrong.com";
+            final String wrongPassword = "wrong";
+            return Stream.of(
+                    Arguments.of(null, null),
+                    Arguments.of(wrongEmail, null),
+                    Arguments.of(null, wrongPassword),
+                    Arguments.of(wrongEmail, wrongPassword)
+            );
         }
 
     }
