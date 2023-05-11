@@ -1,13 +1,18 @@
 package com.slicequeue.jamcar.user.command.application;
 
+import com.slicequeue.jamcar.common.exception.DuplicatedException;
 import com.slicequeue.jamcar.user.command.domain.*;
 import com.slicequeue.jamcar.user.command.domain.vo.Email;
 import com.slicequeue.jamcar.user.command.domain.vo.Password;
 import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
+import javax.validation.ConstraintViolationException;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +36,11 @@ public class CreateUserService {
                 .build();
 
         // 리포지토리 반영, 리턴
-        return userRepository.save(user).getUserUid();
+        try {
+            return userRepository.save(user).getUserUid();
+        } catch (DataIntegrityViolationException cve) {
+            throw new DuplicatedException("사용자 이메일이 중복되었습니다.");
+        }
     }
 
 }

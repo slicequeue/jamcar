@@ -1,6 +1,7 @@
 package com.slicequeue.jamcar.user.presentation;
 
 import com.slicequeue.jamcar.common.exception.BadRequestException;
+import com.slicequeue.jamcar.common.exception.DuplicatedException;
 import com.slicequeue.jamcar.user.command.application.*;
 import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.RequiredArgsConstructor;

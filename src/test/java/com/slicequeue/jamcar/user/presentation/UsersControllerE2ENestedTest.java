@@ -84,9 +84,9 @@ class UsersControllerE2ENestedTest {
 
         @Order(2)
         @ParameterizedTest
-        @MethodSource("getArgumentsCreateUser_fail_insufficient_params")
-        @DisplayName("인자 불충분하여 실패한다.")
-        void createUser_fail_insufficient_params(String caseMsg, String email, String password, String name) {
+        @MethodSource("getArgumentsCreateUser_fail_case1_insufficient_params")
+        @DisplayName("사용자 생성 실패 - 인자 불충분하여 실패한다.")
+        void createUser_fail_case1_insufficient_params(String caseMsg, String email, String password, String name) {
             // given
             final CreateUserRequest createUserRequest = new CreateUserRequest();
             createUserRequest.setEmail(email);
@@ -111,13 +111,42 @@ class UsersControllerE2ENestedTest {
             assertThat(response.body().jsonPath().getString("message")).isNotNull();
         }
 
-        static Stream<Arguments> getArgumentsCreateUser_fail_insufficient_params() {
+        static Stream<Arguments> getArgumentsCreateUser_fail_case1_insufficient_params() {
             final User sampleUser = UserTest.getSampleUser(null);
             return getParamStreamArguments(true,
                     sampleUser.getEmail().toString(),
-                    sampleUser.getPassword().toString(),
+                    sampleUser.getPassword(),
                     sampleUser.getName()
             );
+        }
+
+        @Order(3)
+        @Test
+        @DisplayName("사용자 생성 실패 - 사용자 계정 중복")
+        void createUser_fail_case2_duplicated() {
+            // given
+            final CreateUserRequest createUserRequest = new CreateUserRequest();
+            createUserRequest.setEmail(sampleUser.getEmail().toString());
+            createUserRequest.setPassword(sampleUser.getPassword());
+            createUserRequest.setName(sampleUser.getName());
+
+            // when
+            ExtractableResponse<Response> response = RestAssured
+                    /* given 절은 어떤 http request 를 보내줄지 지정 */
+                    .given().log().all()
+                    .body(createUserRequest)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    /* when 절은 이제 어떠한 URI API 호출할 것인지 지정 */
+                    .when()
+                    .post(targetUrl)
+                    /* then 절은 결과를 리턴 */
+                    .then().log().all()
+                    .extract();
+
+            // then
+            assertThat(response.statusCode()).isEqualTo(HttpStatus.CONFLICT.value());
+            assertThat(response.body().jsonPath().getString("message")).isNotNull();
+
         }
 
     }
