@@ -54,39 +54,11 @@ class UsersControllerE2ENestedTest {
         final String targetUrl = "/users/new";
         final User sampleUser = UserTest.getSampleUser(new UserUid());
 
-        @Test
         @Order(1)
-        @DisplayName("성공한다.")
-        void createUser_success() {
-            // given
-            final CreateUserRequest createUserRequest = new CreateUserRequest();
-            createUserRequest.setEmail(sampleUser.getEmail().toString());
-            createUserRequest.setPassword(sampleUser.getPassword());
-            createUserRequest.setName(sampleUser.getName());
-
-            // when
-            ExtractableResponse<Response> response = RestAssured
-                    /* given 절은 어떤 http request 를 보내줄지 지정 */
-                    .given().log().all()
-                    .body(createUserRequest)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    /* when 절은 이제 어떠한 URI API 호출할 것인지 지정 */
-                    .when()
-                    .post(targetUrl)
-                    /* then 절은 결과를 리턴 */
-                    .then().log().all()
-                    .extract();
-
-            // then
-            assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-            assertThat(response.body().jsonPath().getUUID("uid")).isNotNull();
-        }
-
-        @Order(2)
         @ParameterizedTest
         @MethodSource("getArgumentsCreateUser_fail_case1_insufficient_params")
-        @DisplayName("사용자 생성 실패 - 인자 불충분하여 실패한다.")
-        void createUser_fail_case1_insufficient_params(String caseMsg, String email, String password, String name) {
+        @DisplayName("인자 불충분하여 실패한다.")
+        void createUser_fail_insufficient_params(String caseMsg, String email, String password, String name) {
             // given
             final CreateUserRequest createUserRequest = new CreateUserRequest();
             createUserRequest.setEmail(email);
@@ -120,10 +92,38 @@ class UsersControllerE2ENestedTest {
             );
         }
 
+        @Test
+        @Order(2)
+        @DisplayName("사용자 계정 생성 성공한다.")
+        void createUser_success() {
+            // given
+            final CreateUserRequest createUserRequest = new CreateUserRequest();
+            createUserRequest.setEmail(sampleUser.getEmail().toString());
+            createUserRequest.setPassword(sampleUser.getPassword());
+            createUserRequest.setName(sampleUser.getName());
+
+            // when
+            ExtractableResponse<Response> response = RestAssured
+                    /* given 절은 어떤 http request 를 보내줄지 지정 */
+                    .given().log().all()
+                    .body(createUserRequest)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    /* when 절은 이제 어떠한 URI API 호출할 것인지 지정 */
+                    .when()
+                    .post(targetUrl)
+                    /* then 절은 결과를 리턴 */
+                    .then().log().all()
+                    .extract();
+
+            // then
+            assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+            assertThat(response.body().jsonPath().getUUID("uid")).isNotNull();
+        }
+
         @Order(3)
         @Test
-        @DisplayName("사용자 생성 실패 - 사용자 계정 중복")
-        void createUser_fail_case2_duplicated() {
+        @DisplayName("사용자 계정 중복으로 실패한다.")
+        void createUser_fail_duplicated() {
             // given
             final CreateUserRequest createUserRequest = new CreateUserRequest();
             createUserRequest.setEmail(sampleUser.getEmail().toString());
@@ -172,40 +172,11 @@ class UsersControllerE2ENestedTest {
 //            userRepository.save(sampleUser);
         }
 
-        @Test
         @Order(1)
-        @DisplayName("로그인 성공")
-        void loginUser_success() {
-            // given
-            final String loginEmail = sampleUser.getEmail().toString();
-            final String loginPassword = sampleUser.getPassword();
-
-            final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
-                    .email(loginEmail)
-                    .password(loginPassword)
-                    .build();
-
-            // when
-            ExtractableResponse<Response> response = RestAssured
-                    .given().log().all()
-                    .body(loginUserRequest)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .when()
-                    .post(targetUrl)
-                    .then().log().all()
-                    .extract();
-
-            // then
-            assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-            assertThat(response.body().jsonPath().getString("accessToken")).isNotBlank();
-            assertThat(response.body().jsonPath().getString("expiredAt")).isNotBlank();
-        }
-
-        @Order(2)
         @ParameterizedTest
-        @MethodSource("getArguments_loginUser_fail_case1")
-        @DisplayName("로그인 실패 - 아이디 비밀번호 형식이 맞지 않는 경우")
-        void loginUser_fail_case1(String loginEmail, String loginPassword) {
+        @MethodSource("getArguments_loginUser_fail_id_password_invalid")
+        @DisplayName("아이디 비밀번호 형식이 맞지 않아 실패한다.")
+        void loginUser_fail_id_password_invalid(String loginEmail, String loginPassword) {
             // given
             final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
                     .email(loginEmail)
@@ -226,7 +197,7 @@ class UsersControllerE2ENestedTest {
             assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
         }
 
-        private static Stream<Arguments> getArguments_loginUser_fail_case1() {
+        private static Stream<Arguments> getArguments_loginUser_fail_id_password_invalid() {
             final String wrongEmail = "wrong.com";
             final String wrongPassword = "wrong";
             return Stream.of(
@@ -238,9 +209,9 @@ class UsersControllerE2ENestedTest {
         }
 
         @Test
-        @Order(3)
-        @DisplayName("로그인 실패 - 계정이 존재하지 않는 경우")
-        void loginUser_fail_case2_not_exist() {
+        @Order(2)
+        @DisplayName("계정이 존재하지 않아 실패한다.")
+        void loginUser_fail_user_not_exist() {
             // given
             final String loginEmail = "wrong@fake.com";
             final String loginPassword = "wrong!@#123";
@@ -266,9 +237,9 @@ class UsersControllerE2ENestedTest {
         }
 
         @Test
-        @Order(4)
-        @DisplayName("로그인 실패 - 비밀번호가 맞지 않는 경우")
-        void loginUser_fail_case3_not_matched_password() {
+        @Order(3)
+        @DisplayName("비밀번호가 맞지 않아 실패한다.")
+        void loginUser_fail_not_matched_password() {
             // given
             final String loginEmail = sampleUser.getEmail().toString();
             final String loginPassword = "wrong!@#123";
@@ -291,6 +262,35 @@ class UsersControllerE2ENestedTest {
             // then
             assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
+        }
+
+        @Test
+        @Order(4)
+        @DisplayName("로그인에 성공한다.")
+        void loginUser_success() {
+            // given
+            final String loginEmail = sampleUser.getEmail().toString();
+            final String loginPassword = sampleUser.getPassword();
+
+            final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
+                    .email(loginEmail)
+                    .password(loginPassword)
+                    .build();
+
+            // when
+            ExtractableResponse<Response> response = RestAssured
+                    .given().log().all()
+                    .body(loginUserRequest)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .when()
+                    .post(targetUrl)
+                    .then().log().all()
+                    .extract();
+
+            // then
+            assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+            assertThat(response.body().jsonPath().getString("accessToken")).isNotBlank();
+            assertThat(response.body().jsonPath().getString("expiredAt")).isNotBlank();
         }
 
     }
