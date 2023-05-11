@@ -7,6 +7,7 @@ import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
@@ -31,9 +32,13 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public Optional<User> findByEmail(Email email) {
-        User result = (User) entityManager.createQuery("SELECT user from User user where user.email = ?1")
-                .setParameter(1, email)
-                .getSingleResult();
-        return Optional.ofNullable(result);
+        try {
+            User result = (User) entityManager.createQuery("SELECT user from User user where user.email = ?1")
+                    .setParameter(1, email)
+                    .getSingleResult();
+            return Optional.of(result);
+        } catch (NoResultException nre) {
+            return Optional.empty();
+        }
     }
 }

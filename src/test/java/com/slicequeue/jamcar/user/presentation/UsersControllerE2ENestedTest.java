@@ -51,16 +51,17 @@ class UsersControllerE2ENestedTest {
     @DisplayName("사용사 생성 테스트")
     class CreateUserTest {
 
+        final String targetUrl = "/users/new";
+        final User sampleUser = UserTest.getSampleUser(new UserUid());
+
         @Test
         @Order(1)
         @DisplayName("성공한다.")
         void createUser_success() {
             // given
-            final String targetUrl = "/users/new";
-            final User sampleUser = UserTest.getSampleUser(new UserUid());
             final CreateUserRequest createUserRequest = new CreateUserRequest();
             createUserRequest.setEmail(sampleUser.getEmail().toString());
-            createUserRequest.setPassword(sampleUser.getPassword().toString());
+            createUserRequest.setPassword(sampleUser.getPassword());
             createUserRequest.setName(sampleUser.getName());
 
             // when
@@ -87,7 +88,6 @@ class UsersControllerE2ENestedTest {
         @DisplayName("인자 불충분하여 실패한다.")
         void createUser_fail_insufficient_params(String caseMsg, String email, String password, String name) {
             // given
-            final String targetUrl = "/users/new";
             final CreateUserRequest createUserRequest = new CreateUserRequest();
             createUserRequest.setEmail(email);
             createUserRequest.setPassword(password);
@@ -125,8 +125,12 @@ class UsersControllerE2ENestedTest {
     @Nested
     @Order(2)
     @TestInstance(Lifecycle.PER_CLASS)
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     @DisplayName("사용자 로그인 테스트")
     class LoginUserTest {
+
+        final String targetUrl = "/users/login";
+        final User sampleUser = UserTest.getSampleUser(null);
 
         @Autowired
         UserRepository userRepository;
@@ -144,10 +148,8 @@ class UsersControllerE2ENestedTest {
         @DisplayName("로그인 성공")
         void loginUser_success() {
             // given
-            final String targetUrl = "/users/login";
-            User sampleUser = UserTest.getSampleUser(null);
             final String loginEmail = sampleUser.getEmail().toString();
-            final String loginPassword = sampleUser.getPassword().toString();
+            final String loginPassword = sampleUser.getPassword();
 
             final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
                     .email(loginEmail)
@@ -176,8 +178,6 @@ class UsersControllerE2ENestedTest {
         @DisplayName("로그인 실패 - 아이디 비밀번호 형식이 맞지 않는 경우")
         void loginUser_fail_case1(String loginEmail, String loginPassword) {
             // given
-            final String targetUrl = "/users/login";
-
             final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
                     .email(loginEmail)
                     .password(loginPassword)
@@ -206,6 +206,62 @@ class UsersControllerE2ENestedTest {
                     Arguments.of(null, wrongPassword),
                     Arguments.of(wrongEmail, wrongPassword)
             );
+        }
+
+        @Test
+        @Order(3)
+        @DisplayName("로그인 실패 - 계정이 존재하지 않는 경우")
+        void loginUser_fail_case2_not_exist() {
+            // given
+            final String loginEmail = "wrong@fake.com";
+            final String loginPassword = "wrong!@#123";
+
+            final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
+                    .email(loginEmail)
+                    .password(loginPassword)
+                    .build();
+
+            // when
+            ExtractableResponse<Response> response = RestAssured
+                    .given().log().all()
+                    .body(loginUserRequest)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .when()
+                    .post(targetUrl)
+                    .then().log().all()
+                    .extract();
+
+            // then
+            assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+
+        }
+
+        @Test
+        @Order(4)
+        @DisplayName("로그인 실패 - 비밀번호가 맞지 않는 경우")
+        void loginUser_fail_case3_not_matched_password() {
+            // given
+            final String loginEmail = sampleUser.getEmail().toString();
+            final String loginPassword = "wrong!@#123";
+
+            final LoginUserRequest loginUserRequest = LoginUserRequest.builder()
+                    .email(loginEmail)
+                    .password(loginPassword)
+                    .build();
+
+            // when
+            ExtractableResponse<Response> response = RestAssured
+                    .given().log().all()
+                    .body(loginUserRequest)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .when()
+                    .post(targetUrl)
+                    .then().log().all()
+                    .extract();
+
+            // then
+            assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+
         }
 
     }

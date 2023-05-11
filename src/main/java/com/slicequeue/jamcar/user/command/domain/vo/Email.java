@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Email {
 
     @Comment("이메일")
-    @Column(length = 128, nullable = false)
+    @Column(length = 128, nullable = false, unique = true)
     private String email;
 
     public Email(String email) {
