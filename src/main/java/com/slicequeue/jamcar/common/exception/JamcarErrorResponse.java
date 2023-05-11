@@ -1,6 +1,7 @@
 package com.slicequeue.jamcar.common.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.slicequeue.jamcar.common.base.BaseRuntimeException;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -21,10 +22,18 @@ public class JamcarErrorResponse {
     private JamcarErrorResponse() {}
 
     @Builder
-    public JamcarErrorResponse(Integer code, String message, Map<String, Object> detail) {
+    private JamcarErrorResponse(Integer code, String message, Map<String, Object> detail) {
         this.code = code;
         this.message = message;
         this.detail = detail;
+    }
+
+    public static JamcarErrorResponse from(BaseRuntimeException ex) {
+        return builder()
+                .code(ex.getCode().value())
+                .message(ex.getMessage())
+                .detail(ex.getDetail())
+                .build();
     }
 
 }
