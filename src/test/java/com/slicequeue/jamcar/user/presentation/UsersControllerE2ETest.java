@@ -1,5 +1,6 @@
 package com.slicequeue.jamcar.user.presentation;
 
+import com.slicequeue.jamcar.common.AcceptanceTest;
 import com.slicequeue.jamcar.user.command.application.CreateUserRequest;
 import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.UserTest;
@@ -30,10 +31,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * 다만, @DirtiesContext 애너테이션은 애플리케이션 컨텍스트를 다시 로드하기 때문에 성능에 영향을 미칠 수 있으므로,
  * 가능한 한 사용을 자제해야 합니다.
  */
-@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@TestInstance(Lifecycle.PER_CLASS)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+//@TestInstance(Lifecycle.PER_CLASS)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@AcceptanceTest
 class UsersControllerE2ETest {
 
     @LocalServerPort
