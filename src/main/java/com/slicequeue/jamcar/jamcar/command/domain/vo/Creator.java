@@ -1,5 +1,6 @@
 package com.slicequeue.jamcar.jamcar.command.domain.vo;
 
+import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.Builder;
 import org.hibernate.annotations.Comment;
@@ -9,24 +10,35 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Embeddable
+
 public class Creator {
 
     @Embedded
     @AttributeOverrides(
             @AttributeOverride(name = "uid", column = @Column(name = "creator_uid", nullable = false))
     )
-    private final UserUid userUid;
+    private UserUid userUid;
 
     @NotNull
     @Comment("Jamcar 만든 사용자 이름")
     @Column(name = "creator_name")
-    private final String name; //! 주의! - 사용자명 변경시 갱신 처리
+    private String name; //! 주의! - 사용자명 변경시 갱신 처리
 
     @Builder
     public Creator(UserUid userUid, String name) {
         this.userUid = userUid;
         this.name = name;
     }
+
+    @Builder(builderMethodName = "newCreatorWithUser")
+    public Creator(User user) {
+        this.userUid = user.getUserUid();
+        this.name = user.getName();
+    }
+
+    public Creator() {
+    }
+
 
     @Override
     public String toString() {

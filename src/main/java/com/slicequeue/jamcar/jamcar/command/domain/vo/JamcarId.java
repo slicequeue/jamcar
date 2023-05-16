@@ -2,6 +2,7 @@ package com.slicequeue.jamcar.jamcar.command.domain.vo;
 
 import org.hibernate.annotations.Comment;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +12,9 @@ import java.util.Objects;
 @Embeddable
 public class JamcarId implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("잼카 식별값")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", insertable = false, updatable = false)
     private Long id;
 
     public JamcarId(Long id) {
