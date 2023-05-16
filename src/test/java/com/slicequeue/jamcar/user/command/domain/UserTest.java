@@ -46,7 +46,7 @@ public class UserTest {
         assertThat(result.getUserUid()).isNotNull();
         assertThat(result.getEmail()).isEqualTo(email);
         assertThat(result.getName()).isEqualTo(name);
-        assertThat(result.getPassword()).isEqualTo(password);
+        assertThat(result.getPassword()).isEqualTo(password.toString()); // spring security 적용에 의한 비밀번호
     }
 
     public static User getSampleUser(UserUid uid) {
