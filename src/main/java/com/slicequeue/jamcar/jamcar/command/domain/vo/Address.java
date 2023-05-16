@@ -2,6 +2,7 @@ package com.slicequeue.jamcar.jamcar.command.domain.vo;
 
 import lombok.Builder;
 import org.hibernate.annotations.Comment;
+import org.springframework.util.Assert;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -20,10 +21,16 @@ public class Address {
     @Column(length = 1024, nullable = false)
     private String address;
 
-    @Builder
+    @Builder(builderMethodName = "newAddress")
     public Address(String postalCode, String address) {
+        Assert.notNull(postalCode, "postalCode must not be null.");
+        Assert.notNull(address, "address must not be null");
+
         this.postalCode = postalCode;
         this.address = address;
+    }
+
+    public Address() {
     }
 
     @Override
