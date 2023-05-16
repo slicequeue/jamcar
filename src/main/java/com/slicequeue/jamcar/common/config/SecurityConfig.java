@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-
+        /* 항상할때마다 잘 설정해야하는데... */
         http.httpBasic().disable()
                 .authorizeRequests() // 요청에 대한 사용 권한 체크
                 .antMatchers("/jamcar").authenticated()
