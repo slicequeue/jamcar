@@ -20,6 +20,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,6 +34,7 @@ import static com.slicequeue.jamcar.util.ParameterizedTestUtil.getParamStreamArg
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Import(UsersController.class) // TODO 이게 진짜 효과가 있는 것인지 확인이 필요함
 @TestInstance(Lifecycle.PER_CLASS)
 @TestClassOrder(ClassOrderer.OrderAnnotation.class)
 class UsersControllerE2ENestedTest {

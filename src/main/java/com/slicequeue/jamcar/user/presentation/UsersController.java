@@ -1,12 +1,14 @@
 package com.slicequeue.jamcar.user.presentation;
 
 import com.slicequeue.jamcar.common.exception.BadRequestException;
-import com.slicequeue.jamcar.common.exception.DuplicatedException;
 import com.slicequeue.jamcar.user.command.application.*;
 import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/users")
