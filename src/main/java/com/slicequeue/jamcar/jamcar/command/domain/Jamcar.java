@@ -2,8 +2,11 @@ package com.slicequeue.jamcar.jamcar.command.domain;
 
 import com.slicequeue.jamcar.common.base.BaseTimeSoftDeleteEntity;
 import com.slicequeue.jamcar.common.type.Status;
+import com.slicequeue.jamcar.jamcar.command.application.CreateJamcarRequest;
 import com.slicequeue.jamcar.jamcar.command.domain.vo.Address;
 import com.slicequeue.jamcar.jamcar.command.domain.vo.Creator;
+import com.slicequeue.jamcar.user.command.domain.User;
+import com.slicequeue.jamcar.user.command.domain.vo.UserUid;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -79,6 +82,14 @@ public class Jamcar extends BaseTimeSoftDeleteEntity {
         this.status = Instant.now().isBefore(startDate)
                 ? Status.TO_DO
                 : Status.ON_PROGRESS;
+    }
+
+    public static Jamcar create(CreateJamcarService service, UserUid userUid, String userName, CreateJamcarRequest request) {
+        Creator creator = Creator.newCreator()
+                .userUid(userUid)
+                .name(userName)
+                .build();
+        return service.create(request, creator);
     }
 
     private void validCreator(Creator creator) {
