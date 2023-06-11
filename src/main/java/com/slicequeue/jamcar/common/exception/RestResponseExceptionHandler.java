@@ -13,14 +13,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(BadRequestException.class)
-    ResponseEntity<Object> handleBadRequestException(BadRequestException ex) {
-        log.error(ex);
-        return handleExceptionAndGetResponseEntity(ex);
-    }
-
-    @ExceptionHandler(DuplicatedException.class)
-    ResponseEntity<Object> handleDuplicatedException(DuplicatedException ex) {
+    @ExceptionHandler(BaseRuntimeException.class)
+    ResponseEntity<Object> handleBaseRuntimeException(BaseRuntimeException ex) {
         log.error(ex);
         return handleExceptionAndGetResponseEntity(ex);
     }

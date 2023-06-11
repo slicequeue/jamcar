@@ -18,4 +18,8 @@ public class BadRequestException extends BaseRuntimeException {
     public BadRequestException(IllegalArgumentException e) {
         super(HttpStatus.BAD_REQUEST, e.getMessage(), null);
     }
+
+    public BadRequestException(IllegalStateException e) {
+        super(HttpStatus.BAD_REQUEST, e.getMessage(), null);
+    }
 }

@@ -1,5 +1,6 @@
 package com.slicequeue.jamcar.jamcar.command.domain;
 
+import com.slicequeue.jamcar.common.exception.ConflictException;
 import com.slicequeue.jamcar.jamcar.command.application.CreateJamcarRequest;
 import com.slicequeue.jamcar.jamcar.command.domain.vo.Address;
 import com.slicequeue.jamcar.jamcar.command.domain.vo.Creator;
@@ -64,7 +65,7 @@ class CreateJamcarServiceTest {
         // when & then
         Assertions.assertThatThrownBy(() -> {
             createJamcarService.create(request, creator);
-        }).isInstanceOf(IllegalStateException.class)
+        }).isInstanceOf(ConflictException.class)
                 .hasMessageContaining("생성 정책 위반");
 
     }

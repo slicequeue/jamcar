@@ -1,5 +1,7 @@
 package com.slicequeue.jamcar.jamcar.command.domain;
 
+import com.slicequeue.jamcar.common.exception.BadRequestException;
+import com.slicequeue.jamcar.common.exception.ConflictException;
 import com.slicequeue.jamcar.common.type.Status;
 import com.slicequeue.jamcar.jamcar.command.application.CreateJamcarRequest;
 import com.slicequeue.jamcar.jamcar.command.domain.vo.Address;
@@ -45,7 +47,7 @@ public class CreateJamcarService {
                         List.of(Status.TO_DO, Status.ON_PROGRESS));
 
         if (optional.isPresent()) {
-            throw new IllegalStateException("생성 정책 위반: 같은 사용자 내 출발지/도착지 같고 진행중/대기인 상태인 경우가 존재하지 않아야 생성할 수 있다.");
+            throw new ConflictException("생성 정책 위반: 같은 사용자 내 출발지/도착지 같고 진행중/대기인 상태인 경우가 존재하지 않아야 생성할 수 있다.");
         }
 
         Instant now = Instant.now();
@@ -54,7 +56,8 @@ public class CreateJamcarService {
                 .fromAddress(fromAddress)
                 .toAddress(toAddress)
                 .startDate(now)
-                .endDate(now.plus(1, ChronoUnit.WEEKS))
+                .endDate(now.plus(7, ChronoUnit.DAYS))
+                .creator(creator)
                 .build();
 
         return jamcarRepository.save(jamcar);
