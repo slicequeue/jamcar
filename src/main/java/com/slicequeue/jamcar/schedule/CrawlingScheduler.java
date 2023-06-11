@@ -3,7 +3,7 @@ package com.slicequeue.jamcar.schedule;
 import com.slicequeue.jamcar.common.constants.TargetUrl;
 import com.slicequeue.jamcar.dto.CrawlingData;
 import com.slicequeue.jamcar.service.BaseService;
-import com.slicequeue.jamcar.service.JamcarService;
+import com.slicequeue.jamcar.service.CollectorJamcarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,7 +18,7 @@ import java.util.List;
 public class CrawlingScheduler extends BaseService {
 
     private final TargetUrl target = TargetUrl.NAVERMAP_HOME_TO_PANGYO;
-    private final JamcarService service;
+    private final CollectorJamcarService service;
 
     /**
      * 매 5분 마다 Jamcar 크롤링 진행

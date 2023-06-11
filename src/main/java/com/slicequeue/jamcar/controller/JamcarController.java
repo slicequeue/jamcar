@@ -2,7 +2,7 @@ package com.slicequeue.jamcar.controller;
 
 import com.slicequeue.jamcar.common.constants.TargetUrl;
 import com.slicequeue.jamcar.dto.CrawlingData;
-import com.slicequeue.jamcar.service.JamcarService;
+import com.slicequeue.jamcar.service.CollectorJamcarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/jamcar")
 public class JamcarController {
 
-    private final JamcarService service;
+    private final CollectorJamcarService service;
 
     @GetMapping
     public String getHello() {
