@@ -10,12 +10,11 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Embeddable
-
 public class Creator {
 
     @Embedded
     @AttributeOverrides(
-            @AttributeOverride(name = "uid", column = @Column(name = "creator_uid", nullable = false))
+            @AttributeOverride(name = "uid", column = @Column(name = "creator_uid", columnDefinition = "varchar(36)", nullable = false))
     )
     private UserUid userUid;
 
@@ -24,14 +23,14 @@ public class Creator {
     @Column(name = "creator_name")
     private String name; //! 주의! - 사용자명 변경시 갱신 처리
 
-    @Builder
-    public Creator(UserUid userUid, String name) {
+    @Builder(builderMethodName = "newCreator")
+    private Creator(UserUid userUid, String name) {
         this.userUid = userUid;
         this.name = name;
     }
 
     @Builder(builderMethodName = "newCreatorWithUser")
-    public Creator(User user) {
+    private Creator(User user) {
         this.userUid = user.getUserUid();
         this.name = user.getName();
     }
