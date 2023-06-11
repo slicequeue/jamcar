@@ -1,0 +1,1 @@
+DELETE FROM users WHERE uid = 'd7401ace-0811-11ee-be56-0242ac120002';
