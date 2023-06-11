@@ -1,6 +1,7 @@
 package com.slicequeue.jamcar.user.command.domain.vo;
 
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,7 +13,8 @@ import java.util.UUID;
 public class UserUid implements Serializable {
 
     @Comment("사용자 식별값")
-    @Column(columnDefinition = "BINARY(16)", updatable = false)
+    @Type(type = "uuid-char")
+    @Column(updatable = false)
     private final UUID uid;
 
     public UserUid(UUID uid) {
