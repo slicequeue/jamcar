@@ -1,6 +1,7 @@
 package com.slicequeue.jamcar.user.presentation;
 
 import com.slicequeue.jamcar.common.AcceptanceTest;
+import com.slicequeue.jamcar.jamcar.command.application.JamcarService;
 import com.slicequeue.jamcar.user.command.application.CreateUserRequest;
 import com.slicequeue.jamcar.user.command.domain.User;
 import com.slicequeue.jamcar.user.command.domain.UserTest;
@@ -57,7 +58,7 @@ class UsersControllerE2ETest {
         final User sampleUser = UserTest.getSampleUser(new UserUid());
         final CreateUserRequest createUserRequest = new CreateUserRequest();
         createUserRequest.setEmail(sampleUser.getEmail().toString());
-        createUserRequest.setPassword(sampleUser.getPassword().toString());
+        createUserRequest.setPassword(sampleUser.getPassword());
         createUserRequest.setName(sampleUser.getName());
 
         // when
