@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class JamcarService {
+public class CollectorJamcarService {
 
     private Crawling crawling;
 
-    public JamcarService(SeleniumCrawling crawling) {
+    public CollectorJamcarService(SeleniumCrawling crawling) {
         this.crawling = crawling;
     }
 
