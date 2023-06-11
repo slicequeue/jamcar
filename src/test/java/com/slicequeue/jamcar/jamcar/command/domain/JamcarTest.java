@@ -31,18 +31,10 @@ class JamcarTest {
     @DisplayName("01.Jamcar 삽입 테스트")
     void insert_success_case1() {
         // given
-        User sampleUser = UserTest.getSampleUser(null);
-        User creatorUser = testEntityManager.persistAndFlush(sampleUser);
-
-        Instant now = Instant.now();
-
-        Jamcar jamcar = Jamcar.newJamcar()
-                .creator(Creator.builder().userUid(creatorUser.getUserUid()).name(creatorUser.getName()).build())
-                .startDate(now)
-                .endDate(now.plus(1, ChronoUnit.DAYS))
-                .fromAddress(Address.newAddress().postalCode("05272").address("서울특별시 강동구 상암로 251 주공9단지 아파트 903동 1305호").build())
-                .toAddress(Address.newAddress().postalCode("").address("").build())
-                .build();
+        final User sampleUser = UserTest.getSampleUser(null);
+        final User creatorUser = testEntityManager.persistAndFlush(sampleUser);
+        final Instant now = Instant.now();
+        final Jamcar jamcar = getSampleJamcar(creatorUser, now, now.plus(1, ChronoUnit.DAYS));
 
         // when
         Jamcar result = testEntityManager.persistAndFlush(jamcar);
@@ -50,6 +42,16 @@ class JamcarTest {
         // then
         Assertions.assertThat(result).isNotNull();
 
+    }
+
+    public static Jamcar getSampleJamcar(User creatorUser, Instant startedAt, Instant endedAt) {
+        return Jamcar.newJamcar()
+                .creator(Creator.newCreator().userUid(creatorUser.getUserUid()).name(creatorUser.getName()).build())
+                .startDate(startedAt)
+                .endDate(endedAt)
+                .fromAddress(Address.newAddress().postalCode("05272").address("서울특별시 강동구 상암로 251 주공9단지 아파트 903동 1305호").build())
+                .toAddress(Address.newAddress().postalCode("13529").address("경기 성남시 분당구 판교역로 166").build())
+                .build();
     }
 
 }
