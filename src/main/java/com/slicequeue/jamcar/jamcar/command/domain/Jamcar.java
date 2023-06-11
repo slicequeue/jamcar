@@ -4,7 +4,6 @@ import com.slicequeue.jamcar.common.base.BaseTimeSoftDeleteEntity;
 import com.slicequeue.jamcar.common.type.Status;
 import com.slicequeue.jamcar.jamcar.command.domain.vo.Address;
 import com.slicequeue.jamcar.jamcar.command.domain.vo.Creator;
-import com.slicequeue.jamcar.jamcar.command.domain.vo.JamcarId;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
