@@ -45,7 +45,7 @@ class CreateUserServiceTest {
         // given
         final User sampleUser = UserTest.getSampleUser(new UserUid());
         final String email = sampleUser.getEmail().toString();
-        final String password = sampleUser.getPassword().toString();
+        final String password = sampleUser.getPassword();
         final String name = sampleUser.getName();
         final CreateUserRequest createUserRequest = new CreateUserRequest();
         createUserRequest.setEmail(email);
@@ -83,7 +83,7 @@ class CreateUserServiceTest {
     static Stream<Arguments> getArguments_createUser_fail_case1() {
         final User sampleUser = UserTest.getSampleUser(new UserUid());
         final String email = sampleUser.getEmail().toString();
-        final String password = sampleUser.getPassword().toString();
+        final String password = sampleUser.getPassword();
         final String name = sampleUser.getName();
         return ParameterizedTestUtil.getParamStreamArguments(true, email, password, name);
     }

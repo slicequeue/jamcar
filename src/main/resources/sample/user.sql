@@ -1,0 +1,1 @@
+INSERT INTO users (uid,created_at,updated_at,email,name,password) VALUES ('d7401ace-0811-11ee-be56-0242ac120002','2023-06-11 13:28:30.000000','2023-06-11 13:28:30.000000','slicequeue@gmail.com','김진황','test123@');

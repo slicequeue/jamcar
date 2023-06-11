@@ -9,8 +9,15 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class CreateJamcarRequest {
 
+    @NotBlank(message = "fromPostCode")
+    private String fromPostalCode;
+
     @NotBlank(message = "fromAddress")
     private String fromAddress;
+
+
+    @NotBlank(message = "toPostalCode")
+    private String toPostalCode;
 
     @NotBlank(message = "toAddress")
     private String toAddress;
